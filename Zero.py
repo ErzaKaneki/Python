@@ -72,19 +72,17 @@ deck = [Ace_of_Hearts, Two_of_Hearts, Three_of_Hearts, Four_of_Hearts, Five_of_H
         Ten_of_Spades, Nine_of_Spades, Eight_of_Spades, Seven_of_Spades, Six_of_Spades, Five_of_Spades, Four_of_Spades, Three_of_Spades, Two_of_Spades,
         Ace_of_Spades]
 
-player_score = 0
-
 def welcome_to_hi_low():
     return """\n\t\t\t\t\tWelcome to Hi - Low!\n\t\t\tA game where you have to guess what the next card will be.\n\t\t\t\tWill the next card be Higher or Lower?\n
               The rules are quite simple, pick Higher or Lower, if you pick right you get a point.\n\t\t\t\tMake it through the deck and see what
               \t\t\t\tYour high score will be!!"""
 
 def player_name():
-    name = input("Player please tell me your name.\n")
+    name = input("\t\t\t\tPlayer please tell me your name.\n")
     return name
 
 def welcome_player():
-    return "Hi {n}, welcome to the game!\nLet's get right into it!"
+    return "\n\t\t\t\t\tHi {n}, welcome to the game!\n\t\t\t\t\t   Let's get right into it!".format(n = player1)
 
 def shuffle_the_deck(deck_to_shuffle):
     count = 7
@@ -94,6 +92,7 @@ def shuffle_the_deck(deck_to_shuffle):
     return deck_to_shuffle
 
 def play_hi_low(shuffled_deck):
+    score = 0
     while len(shuffled_deck) > 0:
         previous_card = ""
         for card in shuffled_deck:
@@ -101,36 +100,57 @@ def play_hi_low(shuffled_deck):
                 previous_card = card
                 deck.remove(card)
             else:
-                while answer.lower() != "higher" or answer.lower() != "lower":
-                    answer = input("Is the next card going to be higher or lower than {p}?".format(p = previous_card))
-                print("Flipped card is {c}.")
-                if answer.lower == "higher" and previous_card.value < card.value:
+                answer = input("Is the next card going to be higher or lower than {p}?  -->:".format(p = previous_card))
+                while answer.lower() != "higher" and answer.lower() != "lower":
+                    answer = input("Sorry could you please type \"higher\" or \"lower\" please?")
+                print("Flipped card is {c}.".format(c = card))
+                if answer.lower() == "higher" and previous_card.value < card.value:
                     print("Good guess!")
-                    player_score += 1
+                    sleep(2)
+                    score += 1
                     previous_card = card
                     deck.remove(card)
+                    os.system("cls")
                 elif answer.lower() == "lower" and previous_card.value > card.value:
                     print("Good guess!")
-                    player_score += 1
+                    sleep(2)
+                    score += 1
                     previous_card = card
                     deck.remove(card)
+                    os.system("cls")
                 else:
                     print("Sorry {c} was not {a} than {p}.".format(p = previous_card, a = answer, c = card))
+                    sleep(3)
                     previous_card = card
                     deck.remove(card)
+                    os.system("cls")
+    print("\nWell that was the last card!\n")
+    sleep(2)
+    return score
 
+def end_game(score):
+    print("\n\t\t\t\t\tAnd with that the game is over!!  \n\n\t\t\t\t\tCongradulations on a score of: {s}!!\n".format(s = player_score)) 
+    sleep(3)
+    print("\n\t\t\t\tIf you want a challenge, try and beat your personal best high score!\n")
+    sleep(3)
+    print("\n\t\t\t\t\tTill next time, so long! 8D")
 
-
+os.system("cls")
 print(welcome_to_hi_low())
 input("Press \"Enter\" to continue.")
 os.system("cls")
 player1 = player_name()
-card_in_play = ""
+os.system("cls")
 sleep(1)
 print(welcome_player())
 sleep(2)
 print("""\n\t\t\tNow we're just going to shuffle the deck here, just give me a second or two.\n\t\t\t\tA person onece told me that shuffling the deck
-      \t\t\t   seven time is the perfect shuffle!  So that's what we are doing. :D""")
+      \t\t\t   seven times is the perfect shuffle!  So that's what we are doing. :D""")
 shuffle_the_deck(deck)
 sleep(3)
-print("\n\t\t\tOk the deck is shuffled, lets get on with the game!!")
+print("\n\t\t\t\tOk the deck is shuffled, lets get on with the game!!")
+sleep(2)
+os.system("cls")
+player_score = play_hi_low(deck)
+sleep(3)
+end_game(player_score)
