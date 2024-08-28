@@ -1,3 +1,7 @@
+import random
+from time import sleep
+import os
+
 class Card:
     def __init__(self, suit, number, value):
         self.suit = suit
@@ -68,7 +72,23 @@ deck = [Ace_of_Hearts, Two_of_Hearts, Three_of_Hearts, Four_of_Hearts, Five_of_H
         Ten_of_Spades, Nine_of_Spades, Eight_of_Spades, Seven_of_Spades, Six_of_Spades, Five_of_Spades, Four_of_Spades, Three_of_Spades, Two_of_Spades,
         Ace_of_Spades]
 
+
 def welcome_to_hi_low():
     return """\n\t\t\t\t\tWelcome to Hi - Low!\n\t\t\tA game where you have to guess what the next card will be.\n\t\t\t\tWill the next card be Higher or Lower?\n
               The rules are quite simple, pick Higher or Lower, if you pick right you get a point.\n\t\t\t\tMake it through the deck and see what
               \t\t\t\tYour high score will be!!"""
+
+def player_name():
+    name = input("Player please tell me your name.\n")
+    return name
+
+def welcome_player():
+    return "Hi {n}, welcome to the game!\nLet's get right into it!"
+
+print(welcome_to_hi_low())
+input("Press \"Enter\" to continue.")
+os.system("cls")
+player1 = player_name()
+sleep(1)
+welcome_player()
+sleep(2)
