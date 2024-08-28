@@ -72,6 +72,7 @@ deck = [Ace_of_Hearts, Two_of_Hearts, Three_of_Hearts, Four_of_Hearts, Five_of_H
         Ten_of_Spades, Nine_of_Spades, Eight_of_Spades, Seven_of_Spades, Six_of_Spades, Five_of_Spades, Four_of_Spades, Three_of_Spades, Two_of_Spades,
         Ace_of_Spades]
 
+player_score = 0
 
 def welcome_to_hi_low():
     return """\n\t\t\t\t\tWelcome to Hi - Low!\n\t\t\tA game where you have to guess what the next card will be.\n\t\t\t\tWill the next card be Higher or Lower?\n
@@ -92,14 +93,44 @@ def shuffle_the_deck(deck_to_shuffle):
         count -= 1
     return deck_to_shuffle
 
+def play_hi_low(shuffled_deck):
+    while len(shuffled_deck) > 0:
+        previous_card = ""
+        for card in shuffled_deck:
+            if previous_card == "":
+                previous_card = card
+                deck.remove(card)
+            else:
+                while answer.lower() != "higher" or answer.lower() != "lower":
+                    answer = input("Is the next card going to be higher or lower than {p}?".format(p = previous_card))
+                print("Flipped card is {c}.")
+                if answer.lower == "higher" and previous_card.value < card.value:
+                    print("Good guess!")
+                    player_score += 1
+                    previous_card = card
+                    deck.remove(card)
+                elif answer.lower() == "lower" and previous_card.value > card.value:
+                    print("Good guess!")
+                    player_score += 1
+                    previous_card = card
+                    deck.remove(card)
+                else:
+                    print("Sorry {c} was not {a} than {p}.".format(p = previous_card, a = answer, c = card))
+                    previous_card = card
+                    deck.remove(card)
 
-# print(welcome_to_hi_low())
-# input("Press \"Enter\" to continue.")
-# os.system("cls")
-# player1 = player_name()
-# sleep(1)
-# print(welcome_player())
-# sleep(2)
 
+
+print(welcome_to_hi_low())
+input("Press \"Enter\" to continue.")
+os.system("cls")
+player1 = player_name()
+card_in_play = ""
+sleep(1)
+print(welcome_player())
+sleep(2)
+print("""\n\t\t\tNow we're just going to shuffle the deck here, just give me a second or two.\n\t\t\t\tA person onece told me that shuffling the deck
+      \t\t\t   seven time is the perfect shuffle!  So that's what we are doing. :D""")
 shuffle_the_deck(deck)
-print(deck)
+sleep(3)
+print("\n\t\t\tOk the deck is shuffled, lets get on with the game!!")
