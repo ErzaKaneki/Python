@@ -85,10 +85,21 @@ def player_name():
 def welcome_player():
     return "Hi {n}, welcome to the game!\nLet's get right into it!"
 
-print(welcome_to_hi_low())
-input("Press \"Enter\" to continue.")
-os.system("cls")
-player1 = player_name()
-sleep(1)
-welcome_player()
-sleep(2)
+def shuffle_the_deck(deck_to_shuffle):
+    count = 7
+    while count > 0:
+        random.shuffle(deck_to_shuffle)
+        count -= 1
+    return deck_to_shuffle
+
+
+# print(welcome_to_hi_low())
+# input("Press \"Enter\" to continue.")
+# os.system("cls")
+# player1 = player_name()
+# sleep(1)
+# print(welcome_player())
+# sleep(2)
+
+shuffle_the_deck(deck)
+print(deck)
