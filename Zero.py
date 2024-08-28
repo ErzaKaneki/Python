@@ -67,5 +67,8 @@ deck = [Ace_of_Hearts, Two_of_Hearts, Three_of_Hearts, Four_of_Hearts, Five_of_H
         Five_of_Diamonds, Four_of_Diamonds, Three_of_Diamonds, Two_of_Diamonds, Ace_of_Diamonds, King_of_Spades, Queen_of_Spades, Jack_of_Spades,
         Ten_of_Spades, Nine_of_Spades, Eight_of_Spades, Seven_of_Spades, Six_of_Spades, Five_of_Spades, Four_of_Spades, Three_of_Spades, Two_of_Spades,
         Ace_of_Spades]
-print(deck)
-        
+
+def welcome_to_hi_low():
+    return """\n\t\t\t\t\tWelcome to Hi - Low!\n\t\t\tA game where you have to guess what the next card will be.\n\t\t\t\tWill the next card be Higher or Lower?\n
+              The rules are quite simple, pick Higher or Lower, if you pick right you get a point.\n\t\t\t\tMake it through the deck and see what
+              \t\t\t\tYour high score will be!!"""
