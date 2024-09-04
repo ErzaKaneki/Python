@@ -31,3 +31,8 @@ def get_input():
             letter = choices[i]
             print("\nEnter {L} for {N}.".format(L = letter, N = name))
         user_input = input("")    
+        if user_input.upper() in choices:
+            for i in range(len(stacks)):
+                if user_input.upper() == choices[i]:
+                    return print(stacks[i])
+                
