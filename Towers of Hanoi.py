@@ -24,11 +24,10 @@ num_optimal_moves = (2 * int(num_disks)) - 1
 print("\nThe fastest you can solve this game is in {m} moves.".format(m = num_optimal_moves))
 
 def get_input():
-    choices = [stacks.get_name()[0] for stack in stacks]
+    choices = [stack.get_name()[0] for stack in stacks]
     while True:
         for i in range(len(stacks)):
-            name = stacks[i]
-            name.get_name()
+            name = stacks[i].get_name()
             letter = choices[i]
             print("\nEnter {L} for {N}.".format(L = letter, N = name))
         user_input = input("")    
