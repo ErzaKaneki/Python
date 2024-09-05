@@ -1,10 +1,10 @@
 from node import Node
 
 class Stack:
-  def __init__(self, name):
-    self.size = 0
+  def __init__(self, name = None, limit = 1000):
     self.top_item = None
-    self.limit = 1000
+    self.size = 0
+    self.limit = limit
     self.name = name
   
   def push(self, value):
@@ -14,7 +14,7 @@ class Stack:
       self.top_item = item
       self.size += 1
     else:
-      print("No more room!")
+      print("No room for {}!".format(value))
 
   def pop(self):
     if self.size > 0:
@@ -22,7 +22,7 @@ class Stack:
       self.top_item = item_to_remove.get_next_node()
       self.size -= 1
       return item_to_remove.get_value()
-    print("This stack is totally empty.")
+    print("All out of room.")
 
   def peek(self):
     if self.size > 0:
