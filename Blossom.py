@@ -20,23 +20,22 @@ class HashMap:
         list_at_array = self.array[array_index]
 
         for item in list_at_array:
-            if item[0] == key:
+            if key == item[0]:
                 item[1] = value
-            else:
-                list_at_array.insert(payload)
+                return
+        list_at_array.insert(payload)
 
     def retrieve(self, key):
         array_index = self.compress(self.hash(key))
         list_at_index = self.array[array_index]
 
         for item in list_at_index:
-            if item == key:
+            if key == item[0]:
                 return item[1]
-            else:
-                return None
+        return None
             
 blossom = HashMap(len(flower_definitions))
 for flower in flower_definitions:
-    blossom.assign(flower_definitions[0], flower_definitions[1])
-
-print(blossom.retrieve("daisy") )   
+    blossom.assign(flower[0], flower[1])
+   
+print(blossom.retrieve("lavender"))
