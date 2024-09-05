@@ -1,4 +1,5 @@
 from linked_list import Node, LinkedList
+from blossom_lib import flower_definitions
 
 class HashMap:
     def __init__(self, size):
@@ -33,3 +34,9 @@ class HashMap:
                 return item[1]
             else:
                 return None
+            
+blossom = HashMap(len(flower_definitions))
+for flower in flower_definitions:
+    blossom.assign(flower_definitions[0], flower_definitions[1])
+
+print(blossom.retrieve("daisy") )   
