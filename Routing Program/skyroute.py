@@ -5,7 +5,9 @@ from landmark_choices import landmark_choices
 
 landmark_string = ""
 for letter, landmark in landmark_choices.items():
-    landmark_string += "{0} - {1}".format(letter, landmark)
+    landmark_string += " ({0}) - [{1}]".format(letter, landmark)
+
+stations_under_construction = []
 
 def greet():
     print("Hi there and welcome to SkyRoute!")
@@ -13,10 +15,12 @@ def greet():
 
 def skyroute():
     greet()
+    new_route()
+    goodbye()
 
-def set_start_and_end(start_point, end_point):
-    if get_start != None:
-                change_point = input("What would you like to change? You can enter 'O' for 'orgin', 'D' for 'destination', or 'b' for 'both': -> ")
+def set_start_and_end(start_point = None, end_point = None):
+    if start_point != None:
+                change_point = input("What would you like to change? You can enter 'o' for 'orgin', 'd' for 'destination', or 'b' for 'both': -> ")
                 if change_point.upper() == "B":
                     start_point = get_start()
                     end_point = get_end()
@@ -54,7 +58,34 @@ def get_end():
         return get_end()
 
 def new_route(start_point = None, end_point = None):
-    set_start_and_end(start_point, end_point)
+    start_point, end_point = set_start_and_end(start_point, end_point)
+    shortest_route = get_route(start_point, end_point)
+    
+    if shortest_route:
+        shortest_route_string = "\n".join(shortest_route)
+        print("The shortest metro route form {0} to {1} is:\n{2}".format(start_point, end_point, shortest_route_string))
+    else:
+        print("Unfortunately, there is currently no path tetween {0} and {1} due to maintenance.".format(start_point, end_point))
+    
+    again = input("Would you like to see another route? Enter y/n: -> ")
+    
+    while again.lower() != "y" and again.lower() != "n":
+        again = input("Please make sure to enter 'y' or 'n': -> ")
+    if again.lower() == "y":
+        show_landmarks()
+        new_route(start_point, end_point)
+    elif again.lower() == "n":
+        pass
+
+def show_landmarks():
+    see_landmarks = input("Would you like to see the list of landmarks again? Enter y/n: -> ")
+    if see_landmarks.lower() == "y":
+         print(landmark_string)
+    elif see_landmarks.lower() == "n":
+        pass
+    else:
+        print("Seem that letter want not 'y' or 'n' lets try that again...")
+        show_landmarks()
 
 def get_route(start_point, end_point):
     start_stations = vc_landmarks[start_point]
@@ -68,5 +99,16 @@ def get_route(start_point, end_point):
     shortest_route = min(routes, key = len)
     return shortest_route
 
-my_test = get_route('Stanley Park', 'Central Park')
-print(my_test)
+def goodbye():
+    print("Thanks for using SkyRoute!")
+
+def get_active_stations():
+    updated_metro = vc_metro
+    for suc in stations_under_construction:
+        for current_station, neighboring_stations in vc_metro.items():
+            if current_station != suc:
+                updated_metro[current_station] -= set(stations_under_construction)
+            else:
+                updated_metro[current_station] = set([])
+    return updated_metro
+
