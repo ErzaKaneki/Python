@@ -54,10 +54,19 @@ def get_end():
         return get_end()
 
 def new_route(start_point = None, end_point = None):
-     set_start_and_end(start_point, end_point)
+    set_start_and_end(start_point, end_point)
 
 def get_route(start_point, end_point):
-     start_stations = vc_landmarks[start_point]
-     end_stations = vc_landmarks[end_point]
-     routes = []
-     
+    start_stations = vc_landmarks[start_point]
+    end_stations = vc_landmarks[end_point]
+    routes = []
+    for ss in start_stations:
+        for es in end_stations:
+            route = bfs(vc_metro, ss, es)
+            if route:
+                routes.append(route)
+    shortest_route = min(routes, key = len)
+    return shortest_route
+
+my_test = get_route('Stanley Park', 'Central Park')
+print(my_test)
