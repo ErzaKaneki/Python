@@ -6,6 +6,8 @@ def genre_list(dict):
         values = dict[i]
         print(i)
 
+
+
 def greeting():
     print("""⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠲⠶⠶⠶⠶⠶⠶⠖⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -33,9 +35,13 @@ def search_tool(dict):
     genre_list(game_genres)
     search = input("Please make a selection from the list. -> ")
     if search.lower() in dict:
-        for i in dict[search.lower()]:
-            print(i.name)
-            print("Rating - " + str(i.rating))
-            print("Price - $" + str(i.price))
+        counter = 1
+        while counter <= 5:
+            for i in dict[search.lower()]:
+                if i.rating == counter:
+                    print("\n" + str(i.rating))
+                    print("Title: " + i.name)
+                    print("Price: $" + str(i.price))
+                    counter += 1
 
-search_tool(game_genres)
+search_tool(game_genres)                

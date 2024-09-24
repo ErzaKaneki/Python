@@ -4,6 +4,7 @@ class top_games:
         self.rating = rating
         self.price = price
 
+
 balders_gate_iii = top_games("Bauldur's Gate III", 1, 59.99)
 the_witcher_3 = top_games("The Witcher 3: Wild Hunt", 2, 9.99)
 mass_effect_2 = top_games("Mass Effect 2", 3, 9.89)
