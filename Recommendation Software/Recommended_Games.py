@@ -31,7 +31,7 @@ def greeting():
     print("But there could be console only, or even out dated and hard to find game recomendations.")
     print("We look for the 'Best' but our values still might differ from others opinions.")
     print("Here we go!!!")
-    input("\n\nPlease Press any Key to Continue....")
+    input("\n\nPlease Press Enter to Continue....")
     
 def search_tool(dict):
     print("\n\nWhat style of game are you looking for?\n")
