@@ -1,6 +1,5 @@
 from Game_dict import game_genres
 import os
-import time
 
 def genre_list(dict):
     sortedkeys = sorted(dict.keys(), key = lambda x:x.lower())
