@@ -1,4 +1,4 @@
-def NANAD_gate(a, b):
+def NAND_gate(a, b):
     if a:
         if b:
             return 0
