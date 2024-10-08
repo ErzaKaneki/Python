@@ -1,4 +1,4 @@
-from nand import NANAD_gate
+from nand import NAND_gate
 from not_gate import NOT_gate
 from and_gate import AND_gate
 from or_gate import OR_gate
@@ -20,7 +20,19 @@ def full_adder(a, b, c):
     c_out = OR_gate(c_out_1, c_out_2) 
     return (s, c_out)
 
-print(full_adder(0, 0, 0))
-print(full_adder(1, 1, 1))
-print(full_adder(0, 1, 1))
-print(full_adder(1, 1, 0))
+# print(full_adder(0, 0, 0))  Test variants
+# print(full_adder(1, 1, 1))
+# print(full_adder(0, 1, 1))
+# print(full_adder(1, 1, 0))
+
+def ALU(a, b, c, opcode):
+    if opcode == 0:
+        return half_adder(a, b)
+    if opcode == 1:
+        return full_adder(a, b, c)
+    
+# print(ALU(0, 0, 1, 0))  half   Test variants
+# print(ALU(0, 0, 1, 1))  full
+# print(ALU(1, 1, 1, 0))  half
+# print(ALU(1, 1, 1, 1))  full
+
