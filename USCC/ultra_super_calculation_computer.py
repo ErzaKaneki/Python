@@ -62,4 +62,52 @@ class UltraSuperCalculator:
             print(f"Division by 0 error: {num1} / {num2}.")
         return calculated_value
     
+    def get_last_calculation(self):
+        self.temp_history_index -= 1
+        last_value = "Last recorded result = " + int(self.history_registers[self.temp_history_index], 2)
+        self.update_display(last_value)
 
+    def binary_reader(self, instruction):
+        if len(instruction) != 32:
+            print("Invalid Instruction, goodbye.")
+            return
+        
+        opcode = instruction[0, 5]
+        source_one = instruction[6, 10]
+        source_two = [11, 15]
+        store = instruction[16, 25]
+        function_code = instruction[26, 31]
+
+        if opcode == '000001':
+            self.store_value_to_register(store)
+            return
+        elif opcode == '100001':
+            self.get_last_calculation()
+            return
+        elif opcode != '000000':
+            self.update_display("Invalid OPCODE")
+            return
+        
+        result = 0
+
+        if function_code == '100000':
+            self.update_display(self.add(source_one, source_two))
+            return
+        elif function_code == '100010':
+            self.update_display(self.subtract(source_one, source_two))
+            return
+        elif function_code == '011000':
+            self.update_display(self.multiply(source_one, source_two))
+            return
+        elif function_code == '011010':
+            self.update_display(self.divide(source_one, source_two))
+            return
+        elif function_code != '000000':
+            self.update_display("Invalid OPCODE")
+            return
+
+# erza = UltraSuperCalculator("Erza")
+# erza.binary_reader("1234567812345678123456781234567") Testing if reader is working
+# erza.binary_reader("12345678123456781234567812345678")
+
+        
