@@ -30,7 +30,69 @@ class CPU:
             self.ALU_letters(string)
             
             
+
+    def update_display(self, to_update):
+        self.user_display = to_update
+        print(self.user_display)
+
+    def store_value_to_register(self, value_to_store):
+        if self.numbers_index > 21:
+            self.numbers_index = 1
+        self.number_registers[self.numbers_index] = int(value_to_store, 2)
+        print(f"{int(value_to_store, 2)} was stored in register address {self.numbers_index}.")
+        self.numbers_index +=1
+
+    def load_value_from_register(self, register_address):
+        index = int(register_address, 2)
+        int_value = int(self.number_registers[index])
+        return int_value
     
+    def store_to_history_register(self, result_to_store):
+        if self.history_index > 9:
+            self.history_index = 0
+
+        self.history_registers[self.history_index] = bin(result_to_store)
+        self.history_index += 1
+        self.temp_history_index = self.history_index
+
+    def add(self, address_num1, address_num2):
+        num1 = self.load_value_from_register(address_num1)
+        num2 = self.load_value_from_register(address_num2)
+        calculated_value = num1 + num2
+        return calculated_value
+    
+    def multiply(self, address_num1, address_num2):
+        num1 = self.load_value_from_register(address_num1)
+        num2 = self.load_value_from_register(address_num2)
+        calculated_value = num1 * num2
+        return calculated_value
+    
+    def subtract(self, address_num1, address_num2):
+        num1 = self.load_value_from_register(address_num1)
+        num2 = self.load_value_from_register(address_num2)
+        calculated_value = num1 - num2
+        return calculated_value
+    
+    def divide(self, address_num1, address_num2):
+        num1 = self.load_value_from_register(address_num1)
+        num2 = self.load_value_from_register(address_num2)
+        calculated_value = 0
+        if num2 != 0:
+            calculated_value = int(num1 / num2)
+        else:
+            print(f"Division by 0 error: {num1} / {num2}.")
+        return calculated_value
+    
+    def get_last_calculation(self):
+        self.temp_history_index -= 1
+        last_value = f"Last recorded result: {int(self.history_registers[self.temp_history_index], 2)}"
+        self.update_display(last_value)
+
+    def binary_reader(self, instruction):
+        if len(instruction) != 32:
+            print("Invalid Instruction, goodbye.")
+            return
+            
     def ALU_arithmetic(self, binary):
             if len(binary) != 34:
                 print("Invalid code, goodbye.")
