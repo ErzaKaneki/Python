@@ -87,11 +87,6 @@ class CPU:
         self.temp_history_index -= 1
         last_value = f"Last recorded result: {int(self.history_registers[self.temp_history_index], 2)}"
         self.update_display(last_value)
-
-    def binary_reader(self, instruction):
-        if len(instruction) != 32:
-            print("Invalid Instruction, goodbye.")
-            return
             
     def ALU_arithmetic(self, binary):
             if len(binary) != 34:
