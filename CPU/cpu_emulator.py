@@ -148,3 +148,5 @@ class Memory_Bus:
     def __init__(self):
         self.output = [0] * 256
         self.output_counter = 0
+        
+erza = CPU("input_file.txt")
