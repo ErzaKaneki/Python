@@ -131,9 +131,10 @@ class CPU:
         if self.letter_index > 265:
             self.letter_index = 1
         while binary:
-            binary_string = binary[:9]
+            binary_string = binary[:8]
+            binary = binary[8:]
             decoded = bytes.fromhex(binary_string).decode("ascii")
-            self.leter_registers[self.letter_index] = decoded
+            self.letter_registers[self.letter_index] = decoded
             self.letter_index += 1
             
     def execute_typed(self, list):
