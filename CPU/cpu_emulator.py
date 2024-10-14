@@ -149,4 +149,4 @@ class Memory_Bus:
         self.output = [0] * 256
         self.output_counter = 0
         
-erza = CPU("input_file.txt")
+erza = CPU("input_file.csv")
