@@ -1,35 +1,32 @@
 import csv
 
 class CPU:
-    def __init__(self, input):
-        self.input = input
-        self.number_registers = [0] * 256
+    def __init__(self):
+        self.number_registers = [0] *256
         self.history_registers = [0] * 256
-        self.leter_registers = [0] * 265
-        self.string_registers = [0] * 256
+        self.letter_registers = [0] * 256
+        #self.string_registers = []
         self.numbers_index = 1
-        self.letter_index = 1
+        self.letter_index = 0
         self.history_index = 0
         self.temp_history_index = 0
         self.user_display = ("")
         self.program_counter = 0
         
-    def fetch(self):
-        with open(self.input, "r") as file:
-            csv_reader = csv.reader(file)
-            
+    def fetch(self, grab):
+        with open(grab, "r") as file:
+            csv_reader = csv.reader(file, delimiter = ',')
             for line in csv_reader:
                 self.program_counter += 1
                 self.control_unit(line)
-                
             
     def control_unit(self, string):
-        if string[:2] == "0b":
-           self.ALU_arithmetic(string)
-        else:
-            self.ALU_letters(string)
-            
-            
+        for i in string[:1]: 
+            #print(str(i[:2]))
+            if i[:2] == "0b":
+                self.ALU_arithmetic(string)
+            else:
+                self.ALU_letters(string)
 
     def update_display(self, to_update):
         self.user_display = to_update
@@ -89,15 +86,18 @@ class CPU:
         self.update_display(last_value)
             
     def ALU_arithmetic(self, binary):
-            if len(binary) != 34:
-                print("Invalid code, goodbye.")
-                return
-        
-            opcode = binary[:8]
-            source_one = binary[8:13]
-            source_two = binary[13:18]
-            store = binary[18:28]
-            function_code = binary[28:]
+            binary_values = ''.join(binary)
+            binary.pop()
+            opcode = binary_values[:8]
+            #print(opcode)
+            source_one = binary_values[8:13]
+            #print(source_one)
+            source_two = binary_values[13:18]
+            #print(source_two)
+            store = binary_values[18:28]
+            #print(store)
+            function_code = binary_values[28:]
+            #print(function_code)
 
             if opcode == "0b000001":
                 self.store_value_to_register(store)
@@ -107,6 +107,7 @@ class CPU:
                 return
             elif opcode != '0b000000':
                 self.update_display("Invalid OPCODE")
+                print(opcode)
                 return
             
             result = 0
@@ -130,23 +131,35 @@ class CPU:
     def ALU_letters(self, binary):
         if self.letter_index > 265:
             self.letter_index = 1
-        while binary:
-            binary_string = binary[:8]
-            binary = binary[8:]
-            decoded = bytes.fromhex(binary_string).decode("ascii")
-            self.letter_registers[self.letter_index] = decoded
-            self.letter_index += 1
+        binary = ''.join(binary)
+        define = self.binary_to_text(binary)
+        self.letter_registers[self.letter_index] = define
+        self.letter_index += 1
+        self.execute_typed(define)
+        
+     
+    @staticmethod        
+    def binary_to_text(binary_string):
+        binary_values = binary_string.split(' ')
+        binary_values.pop()
+        text = ''.join(chr(int(byte, 2))for byte in binary_values)
+        return text
+
+        
+           
             
     def execute_typed(self, list):
-        output = ", ".join(list)
-        print(output)
-        Memory_Bus.output[Memory_Bus.output_counter] = output
-        Memory_Bus.output_counter += 1
-            
+            output = list
+            print(output)
+            toot_toot = Memory_Bus()
+            toot_toot.mem_output.append(output)
+        #print(toot_toot.mem_output)
+           
             
 class Memory_Bus:
     def __init__(self):
-        self.output = [0] * 256
-        self.output_counter = 0
+        self.mem_output = []
+        self.mem_output_counter = 0
         
-erza = CPU("input_file.csv")
+erza = CPU()
+erza.fetch("G:/Users/nevin/vsCode/Python/CPU/input_file.txt")
