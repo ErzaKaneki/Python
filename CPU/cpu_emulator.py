@@ -5,46 +5,43 @@ class CPU:
         self.number_registers = [0] *256
         self.history_registers = [0] * 256
         self.letter_registers = [0] * 256
-        #self.string_registers = []
         self.numbers_index = 1
         self.letter_index = 0
         self.history_index = 0
         self.temp_history_index = 0
         self.user_display = ("")
-        self.program_counter = 0
         
     def fetch(self, grab):
-        with open(grab, "r") as file:
+        with open(grab, "r") as file:  #reads file
             csv_reader = csv.reader(file, delimiter = ',')
             for line in csv_reader:
                 self.program_counter += 1
                 self.control_unit(line)
             
-    def control_unit(self, string):
+    def control_unit(self, string):  #decides where to send information
         for i in string[:1]: 
-            #print(str(i[:2]))
             if i[:2] == "0b":
                 self.ALU_arithmetic(string)
             else:
                 self.ALU_letters(string)
 
-    def update_display(self, to_update):
+    def update_display(self, to_update):  #arithmetic output
         self.user_display = to_update
         print(self.user_display)
 
-    def store_value_to_register(self, value_to_store):
+    def store_value_to_register(self, value_to_store): #arithmetic registers are short term storage.
         if self.numbers_index > 21:
             self.numbers_index = 1
         self.number_registers[self.numbers_index] = int(value_to_store, 2)
         print(f"{int(value_to_store, 2)} was stored in register address {self.numbers_index}.")
         self.numbers_index +=1
 
-    def load_value_from_register(self, register_address):
+    def load_value_from_register(self, register_address): #arithmetic
         index = int(register_address, 2)
         int_value = int(self.number_registers[index])
         return int_value
     
-    def store_to_history_register(self, result_to_store):
+    def store_to_history_register(self, result_to_store): #arithmetic
         if self.history_index > 9:
             self.history_index = 0
 
@@ -52,25 +49,25 @@ class CPU:
         self.history_index += 1
         self.temp_history_index = self.history_index
 
-    def add(self, address_num1, address_num2):
+    def add(self, address_num1, address_num2):  #arithmetic
         num1 = self.load_value_from_register(address_num1)
         num2 = self.load_value_from_register(address_num2)
         calculated_value = num1 + num2
         return calculated_value
     
-    def multiply(self, address_num1, address_num2):
+    def multiply(self, address_num1, address_num2):   #arithmetic
         num1 = self.load_value_from_register(address_num1)
         num2 = self.load_value_from_register(address_num2)
         calculated_value = num1 * num2
         return calculated_value
     
-    def subtract(self, address_num1, address_num2):
+    def subtract(self, address_num1, address_num2):   #arithmetic
         num1 = self.load_value_from_register(address_num1)
         num2 = self.load_value_from_register(address_num2)
         calculated_value = num1 - num2
         return calculated_value
     
-    def divide(self, address_num1, address_num2):
+    def divide(self, address_num1, address_num2):   #arithmetic
         num1 = self.load_value_from_register(address_num1)
         num2 = self.load_value_from_register(address_num2)
         calculated_value = 0
@@ -80,24 +77,19 @@ class CPU:
             print(f"Division by 0 error: {num1} / {num2}.")
         return calculated_value
     
-    def get_last_calculation(self):
+    def get_last_calculation(self):   #arithmetic
         self.temp_history_index -= 1
         last_value = f"Last recorded result: {int(self.history_registers[self.temp_history_index], 2)}"
         self.update_display(last_value)
             
-    def ALU_arithmetic(self, binary):
+    def ALU_arithmetic(self, binary):   #arithmetic main
             binary_values = ''.join(binary)
             binary.pop()
             opcode = binary_values[:8]
-            #print(opcode)
             source_one = binary_values[8:13]
-            #print(source_one)
             source_two = binary_values[13:18]
-            #print(source_two)
             store = binary_values[18:28]
-            #print(store)
             function_code = binary_values[28:]
-            #print(function_code)
 
             if opcode == "0b000001":
                 self.store_value_to_register(store)
@@ -128,7 +120,7 @@ class CPU:
             self.update_display(f"The result is: {result}")
        
     
-    def ALU_letters(self, binary):
+    def ALU_letters(self, binary):  #non-arithmetic
         if self.letter_index > 265:
             self.letter_index = 1
         binary = ''.join(binary)
@@ -138,8 +130,8 @@ class CPU:
         self.execute_typed(define)
         
      
-    @staticmethod        
-    def binary_to_text(binary_string):
+    @staticmethod        #called so to avoid calling .self
+    def binary_to_text(binary_string):   #non-arithmetic
         binary_values = binary_string.split(' ')
         binary_values.pop()
         text = ''.join(chr(int(byte, 2))for byte in binary_values)
@@ -148,15 +140,15 @@ class CPU:
         
            
             
-    def execute_typed(self, list):
+    def execute_typed(self, list):   #non-arithmetic
             output = list
             print(output)
             toot_toot = Memory_Bus()
             toot_toot.mem_output.append(output)
-        #print(toot_toot.mem_output)
+
            
             
-class Memory_Bus:
+class Memory_Bus:  #long term storage
     def __init__(self):
         self.mem_output = []
         self.mem_output_counter = 0
