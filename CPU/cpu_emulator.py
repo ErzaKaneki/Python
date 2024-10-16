@@ -15,7 +15,6 @@ class CPU:
         with open(grab, "r") as file:  #reads file
             csv_reader = csv.reader(file, delimiter = ',')
             for line in csv_reader:
-                self.program_counter += 1
                 self.control_unit(line)
             
     def control_unit(self, string):  #decides where to send information
