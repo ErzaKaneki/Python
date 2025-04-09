@@ -4,14 +4,14 @@ secretMessage = "xuo jxuhu! jxyi yi qd unqcfbu ev q squiqh syfxuh. muhu oek qrbu
 
 def decipher(message, offset):
     newMessage = []
-    for letter in message:
-        if letter in letters:
-            base = letters.index(letter)
-            cipher = base + offset
-            x = cipher % 26
-            newMessage.append(letters[x])
+    message = message.lower()
+    for char in message:
+        if char in letters:
+            base = letters.index(char)
+            cipher = (base + offset) % 26
+            newMessage.append(letters[cipher])
         else:
-            newMessage.append(letter)
+            newMessage.append(char)
     print(''.join(newMessage))
 
 decipher(secretMessage, 10)
@@ -20,14 +20,14 @@ newMessage = "i was able to decode it, thank you for the fun challenge!"
 
 def cipher(message, offset):
     secretMessage = []
-    for letter in message:
-        if letter in letters:
-            base = letters.index(letter)
-            decipher = base - offset
-            x = decipher % 26
-            secretMessage.append(letters[x])
+    message = message.lower()
+    for char in message:
+        if char in letters:
+            base = letters.index(char)
+            decipher = (base - offset) % 26
+            secretMessage.append(letters[decipher])
         else:
-            secretMessage.append(letter)
+            secretMessage.append(char)
     print(''.join(secretMessage))
 
 cipher(newMessage, 10)
