@@ -17,6 +17,8 @@ class Menu:
         for item in purchased_items:
             if item in self.items:
                 total += self.items[item]
+            else:
+                print(f"{item} is not available in the menu.")
         return f"${total:.2f}"
         
 brunch = Menu("Brunch", brunch_items, time(11, 0), time(16, 0)) # brunch from 11am to 4pm
