@@ -21,7 +21,7 @@ class Menu:
         
 brunch = Menu("Brunch", brunch_items, time(11, 0), time(16, 0)) # brunch from 11am to 4pm
 early_bird_dinners = Menu("Early Bird", early_bird_items, time(15, 0), time(18, 0)) # early bird from 3pm to 6pm
-dinner = Menu("Dinner", dinner_items, time(11, 0), time(21, 0)) # dinner form 11am to 9pm
+dinner = Menu("Dinner", dinner_items, time(17, 0), time(23, 0)) # dinner form 11am to 9pm
 kids = Menu("Kids", kids_items, time(11, 0), time(21, 0)) # kids available from 11am to 9pm
 arepas_menu = Menu("Arepas", arepas_items, time(10, 0), time(20, 0)) # arapas available from 10am to 8pm
 
