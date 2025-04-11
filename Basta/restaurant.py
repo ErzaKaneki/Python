@@ -1,4 +1,5 @@
 from menu_data import brunch_items, early_bird_items, dinner_items, kids_items
+from datetime import datetime, time
 
 class Menu:
     
@@ -9,18 +10,33 @@ class Menu:
         self.end_time = end_time
     
     def __repr__(self):
-        return f"{self.name} menu available from {self.start_time} to {self.end_time}."
+        return f"{self.name} menu available from {self.start_time.strftime("%I%p").lstrip("0").lower()} to {self.end_time.strftime("%I%p").lstrip("0").lower()}."
     
     def calculate_bill(self, purchased_items):
         total = 0
-        for items in purchased_items:
-            if items in self.items:
-                total += self.items[items]
+        for item in purchased_items:
+            if item in self.items:
+                total += self.items[item]
         return f"${total:.2f}"
         
-brunch = Menu("Brunch", brunch_items, "11am", "4pm")
-early_bird_dinners = Menu("Early Bird", early_bird_items, "3pm", "6pm")
-dinner = Menu("Dinner", dinner_items, "11am", "9pm")
-kids = Menu("Kids", kids_items, "11am", "9pm")
+brunch = Menu("Brunch", brunch_items, time(11, 0), time(16, 0)) # brunch from 11am to 4pm
+early_bird_dinners = Menu("Early Bird", early_bird_items, time(15, 0), time(18, 0)) # early bird from 3pm to 6pm
+dinner = Menu("Dinner", dinner_items, time(11, 0), time(21, 0)) # dinner form 11am to 9pm
+kids = Menu("Kids", kids_items, time(11, 0), time(21, 0)) # kids available from 11am to 9pm
 
-print(Menu.calculate_bill(brunch, ["pancakes", "home fries", "coffee"]))
+class Franchise:
+    
+    def __init__(self, address, menus):
+        self.address = address
+        self.menus = menus
+        
+    def __repr__(self):
+        return f"Franchise located at {self.address}."
+    
+    def available_menus(self, time):
+        return [menu for menu in self.menus if menu.start_time <= time <= menu.end_time]
+
+flagship_store = Franchise("1232 West End Road",[brunch, early_bird_dinners, dinner, kids])
+new_installment = Franchise("12 East Mulberry Street", [brunch, early_bird_dinners, dinner, kids])
+
+print(flagship_store.available_menus(time(17, 0)))
