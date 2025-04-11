@@ -1,4 +1,4 @@
-from menu_data import brunch_items, early_bird_items, dinner_items, kids_items
+from menu_data import arepas_items, brunch_items, early_bird_items, dinner_items, kids_items
 from datetime import datetime, time
 
 class Menu:
@@ -23,6 +23,7 @@ brunch = Menu("Brunch", brunch_items, time(11, 0), time(16, 0)) # brunch from 11
 early_bird_dinners = Menu("Early Bird", early_bird_items, time(15, 0), time(18, 0)) # early bird from 3pm to 6pm
 dinner = Menu("Dinner", dinner_items, time(11, 0), time(21, 0)) # dinner form 11am to 9pm
 kids = Menu("Kids", kids_items, time(11, 0), time(21, 0)) # kids available from 11am to 9pm
+arepas_menu = Menu("Arepas", arepas_items, time(10, 0), time(20, 0)) # arapas available from 10am to 8pm
 
 class Franchise:
     
@@ -38,5 +39,13 @@ class Franchise:
 
 flagship_store = Franchise("1232 West End Road",[brunch, early_bird_dinners, dinner, kids])
 new_installment = Franchise("12 East Mulberry Street", [brunch, early_bird_dinners, dinner, kids])
+arepas_place = Franchise("189 Fitzgerald Avenue", [arepas_menu])
 
-print(flagship_store.available_menus(time(17, 0)))
+class Business:
+    
+    def __init__(self, name, franchises):
+        self.name = name
+        self.franchises = franchises
+        
+BFwmH = Business("Basta Fazoolin' with My Heart", [flagship_store, new_installment])
+TaA = Business("Take a' Arepa", [arepas_place])

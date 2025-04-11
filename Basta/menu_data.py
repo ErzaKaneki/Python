@@ -35,3 +35,10 @@ kids_items = {
     'fusilli with wild mushrooms': 12.00,
     'apple juice': 3.00
 }
+
+arepas_items = {
+    'arepa pabellon': 7.00,
+    'pernil arepa': 8.50,
+    'guayanes arepa': 8.00,
+    'jamon arepa': 7.50
+}
