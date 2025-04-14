@@ -1,3 +1,5 @@
+from calculate_bill import calculate_price_per_person
+
 tables = {
     1: {
         'name': 'Jiho',
@@ -25,17 +27,7 @@ def assign_table(table_number, name, vip_status=False):
         tables[table_number]['vip_status'] = vip_status
         tables[table_number]['order'] = {}
 
-# def assign_and_print_order(table_number, *order_items):
-#     if table_number in tables:
-#         tables[table_number]['order'] = order_items
-#     for item in order_items:
-#         print(item)
-        
-# assign_table(2, 'Arwa', True)
-# assign_and_print_order(2, 'Steak', 'Seabass', 'Wine Bottle')
-
-assign_table(2, 'Douglas', True)    
-    
-assign_food_items(2, food='Seabass, Gnocchi, Pizza', drinks='Margarita, Water')    
-
+assign_table(7, 'Nevin', True)
+assign_food_items(7, food='Pizza', drinks='Coke, Dr. Pepper')
 print(tables)
+calculate_price_per_person(28.00, 15, 2) # should have tied this into the actual menu and prices
