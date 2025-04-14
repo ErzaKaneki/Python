@@ -12,11 +12,19 @@ tables = {
     7: {},
 }
 
-print(tables)
-
 def assign_table(table_number, name, vip_status=False):
     if table_number in tables:
-        tables[table_number]['name'] = name]
+        tables[table_number]['name'] = name
         tables[table_number]['vip_status'] = vip_status
         tables[table_number]['order'] = ''
 
+def assign_and_print_order(table_number, *order_items):
+    if table_number in tables:
+        tables[table_number]['order'] = order_items
+    for item in order_items:
+        print(item)
+        
+assign_table(2, 'Arwa', True)
+assign_and_print_order(2, 'Steak', 'Seabass', 'Wine Bottle')
+
+print(tables)
